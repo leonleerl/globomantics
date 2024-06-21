@@ -22,19 +22,19 @@ const houseArray = [
 },
 ];
 
-const HouseList = () => {
+const HouseList = (selectedHouse) => {
     // const [houses, setHouses] = useState([]);
-    const [houses, setHouses] = useState(houseArray);
+    const [houses, setHouses] = useState([]);
     const [count, setCount] = useState(0);
 
-    // useEffect(() => {
-    //     const fetchHouses = async() => {
-    //         const response = await fetch("/api/houses");
-    //         const houses = await response.json();
-    //         setHouses(houses);
-    //     }
-    //     fetchHouses();
-    // }, []);
+    useEffect(() => {
+        const fetchHouses = async() => {
+            const response = await fetch("/api/houses");
+            const houses = await response.json();
+            setHouses(houses);
+        }
+        fetchHouses();
+    }, []);
 
     const addHouse = () => {
         setHouses([
@@ -69,7 +69,7 @@ const HouseList = () => {
                 </thead>
                 <tbody>
                     {houses.map(h => (
-                        <HouseRow key={h.id} house={h}/>
+                        <HouseRow key={h.id} house={h} selectedHouse={selectedHouse}/>
                     ))}
                 </tbody>
             </table>
